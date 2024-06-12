@@ -1,0 +1,128 @@
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <p style="color: rgb(250, 250, 250);font-weight: bold;">
+      <span>
+<img  src="../../../../assets/icons/icone2.png" style="width: 70px;height: 80px">
+
+      </span>
+      <span>MILITOPS</span>
+
+    </p>
+  </div>
+  <div class="sidebar-menu">
+    <ul>
+      <li *ngIf="user.role == 'Supervisor'">
+        <a [routerLink]="['/responsable/dash']">
+          <span class="las la-igloo"></span>
+          <span>Dashboard </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/responsable/listdirect']"  >
+        <span class="las la-clipboard-list"></span>
+        <span>Missions Direct </span>
+    </a>
+    </li>
+    <li>
+      <a [routerLink]="['/responsable/soldats']" *ngIf="user.role == 'Supervisor'">
+        <span class="las la-user"></span>
+        <span>Soldiers </span>
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="['/responsable/controller']" *ngIf="user.role == 'Supervisor'">
+      <span class="las la-user-circle"></span>
+      <span>Controllers </span>
+  </a>
+</li>
+
+<li>
+  <a [routerLink]="['/responsable/missionterminees']" *ngIf="user.role == 'Supervisor'">
+    <span class="las la-receipt"></span>
+    <span>Mission Termined </span>
+</a>
+</li>
+<li>
+  <a (click)="logout()" [style.margin-top.px]="user.role=='Controller' ? 470 : 260">
+    <span class="las la-sign-out-alt"></span>
+    <span>Logout</span>
+  </a>
+</li>
+    </ul>
+
+  </div>
+</div>
+<div class="main-content">
+  <app-header></app-header>
+
+
+<main>
+  <div class="card">
+    <div class="card-body d-flex">
+      <div class="mission-info" style="margin-top:50px">
+        <h1 class="card-title" >{{user.name}}</h1>
+        <p><strong>{{user.role }}</strong></p>
+        <img src="{{user.image }}" style="height: 150px;width: 150px;"/>
+      </div>
+      <div class="mission-table" style="padding-left: 50px;margin-top:50px">
+        <p><strong>Date  of Birth:</strong> {{user.datebirth| date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Military Identification Number:</strong> {{user.idMilitaire }} </p>
+      <p><strong>Home Address:</strong> {{user.adresse}}</p>
+      <p><strong>Phone Number:</strong> {{user.telephone}}</p>
+      <p><strong>Marital Status:</strong> {{user.etatCivil}}</p>
+      <p><strong>Gender:</strong> {{user.genre}}</p>
+      <p><strong>Mail:</strong> {{user.email}}</p>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col" style="padding-left: 50px;">
+        <h2 style="color: blue;">Military Training</h2>
+        <p><strong>Date of Incorporation into the Army:</strong> {{ user.dateEngagement | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Unit of Assignment :</strong> {{user.unitAffectation}}</p>
+        <p> <strong>Obtained Ranks :</strong></p>
+        <ul>
+          <li *ngFor="let grade of user.experiences">
+            Year: {{ grade.annee | date: 'dd/MM/yyyy'}} <br> Type: {{ grade.type }}
+          </li>
+        </ul>
+        <p><strong>Specializations :</strong>
+          <li *ngFor="let spec of user.specializations">
+            Name: {{ spec.name}}
+          </li></p>
+      </div>
+      <div class="col">
+        <h2 style="color: blue;">Skills and Qualifications</h2>
+        <p><strong>Specific Skills :</strong>  <li *ngFor="let com of user.competences">
+          Name: {{ com.nom }} <br> Level: {{ com.niveau }}
+        </li></p>
+        <p><strong>Certifications :</strong>
+          <li *ngFor="let cert of user.certifications">
+            Name: {{ cert.nom }} <br> Year: {{ cert.dateObtention | date: 'dd/MM/yyyy' }}
+          </li></p>
+        <h2 style="color: blue;">Missions</h2>
+        <ul *ngFor="let mis of missions">
+          <li><img src="../../../assets/iconemission.png" style="width: 50px;height: 50px;"/> {{mis.name}}</li>
+
+        </ul>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="toggleCVVisibility()" style="margin-left: 500px;margin-right: 500px;margin-bottom: 50;">Show CV</button>
+
+<div *ngIf="cvVisible">
+<pdf-viewer [src]="pdfSrc"
+[render-text]="true"
+[original-size]="false"
+style="width: 600px; height: 500px;margin-left: 300px;"
+></pdf-viewer>
+</div>
+
+</div>
+</main>
+
+
+</div>
+
+

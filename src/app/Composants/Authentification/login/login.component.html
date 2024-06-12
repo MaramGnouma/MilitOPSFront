@@ -1,0 +1,44 @@
+<img class="wave" src="../../assets/wave.png">
+<div class="container">
+  <div class="img">
+  </div>
+  <div class="login-content">
+    <form #loginForm="ngForm">
+      <img src="../../assets/sold.jpeg">
+      <h2 class="title">Welcome</h2>
+      <div class="input-div one">
+        <div class="i">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="div">
+          <input type="text" class="input" [(ngModel)]="email" (focus)="isEmailEmptyTouched = true" required [ngModelOptions]="{standalone: true}" placeholder="Email">
+          <div *ngIf="isEmailEmpty(email)" style="color: red;">Email cannot be empty.</div>
+          <div *ngIf="email && !ValidateEmail(email)" style="color: red;">Invalid email address.</div>
+        </div>
+      </div>
+      <div class="input-div pass">
+        <div class="i">
+          <i class="fas fa-lock"></i>
+        </div>
+        <div class="div">
+          <input
+            type="{{ hidePassword ? 'password' : 'text' }}"
+            class="input"
+            (focus)="ispassEmptyTouched = true"
+            [(ngModel)]="password"
+            required
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Password">
+          <i
+            class="fas {{ hidePassword ? 'fa-eye-slash' : 'fa-eye' }} password-toggle"
+            (click)="togglePasswordVisibility()">
+          </i>
+          <div *ngIf="ispasswordEmpty(password)" style="color: red;">Password cannot be empty.</div>
+        </div>
+      </div>
+      <a (click)="openAddSmartwatchModal()">Forgot Password?</a>
+      <input type="submit" class="btn" [disabled]="loginForm.invalid" (click)="login()" value="Submit">
+      <div class="text sign-up-text">Don't have an account? <label class="flip"><a [routerLink]="'/sign'">Signup now</a></label></div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+.card-image{
+  position: relative;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background: #FFF;
+  justify-content: space-around;
+
+}
+.card-image .card-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #405a64;
+}
+
+.card{
+  width: 350px;
+  border-radius: 25px;
+  background-color: #FFF;
+justify-content: space-between;
+display: flex;
+margin-right: 150px;
+height: 320px;
+margin-top: 10px;
+
+}
+.slide-content {
+  margin: 0 40px;
+  overflow-x: hidden; /* Ajout de cette règle pour cacher la barre de défilement horizontale */
+}
+
+.image-content, .card-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+padding: 10px 14px;
+}
+.name{
+  font-size: 20px;
+  font-weight: 500;
+  color: hsl(0, 0%, 20%);
+}
+.desciption strong {
+  font-size: 14px;
+  color: #707070;
+
+}
+.image-content{
+  row-gap: 5px;
+  position: relative;
+}
+.button{
+  border: none;
+  font-size: 16px;
+  color: #FFF;
+  padding: 8px 16px;
+  background-color: #4070F4;
+  border-radius:6px;
+margin-left: 100px;
+margin-bottom: 5px;
+  cursor: pointer;
+transition: all 0.3s ease ;
+margin-left: 80px;
+width: 80px;
+}
+.button:hover{
+  background: #265DF2;
+}
+.overlay{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: cadetblue;
+  left: 0;
+  top: 0;
+  border-radius: 25px 25px 0 25px;
+
+}
+.overlay::before,.overlay::after{
+  content: '';
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  background-color: cadetblue;
+  right: 0;
+  bottom: -40px;
+
+}
+.overlay::after{
+border-radius: 0 25px 0 0;
+background-color: #FFF;
+}
+.container-fluid{
+  margin-top: 80px;
+}
+
+.search-wrapper1  {
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+background-color: white;
+width: 250px;
+  }
+
+  .search-wrapper1 input{
+  height: 100%;
+  padding: .5rem;
+  border: none;
+  outline: none;
+  }
+
+  .search-wrapper1 span{
+    display: inline-block;
+    padding: 0rem 1rem ;
+    font-size: 1.5rem;
+  }

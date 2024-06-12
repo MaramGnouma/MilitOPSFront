@@ -1,0 +1,329 @@
+<img class="wave" src="../../assets/wave.png">
+	<div class="container">
+		<div class="img">
+		</div>
+		<div class="login-content">
+			<form  [formGroup]="Empregister"  class="form">
+				<img src="../../assets/sold.jpeg">
+				<h2 class="title">Welcome</h2>
+        <mat-stepper [linear]="isLinear" #stepper>
+
+          <mat-step [stepControl]="Basic">
+            <div formGroupName="basic" style="margin-left: 100px;">
+              <ng-template matStepLabel>Fill Basic Details</ng-template>
+
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="First name" formControlName="name">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="genre">
+                  <mat-option value="Male">Male</mat-option>
+                  <mat-option value="Female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role">
+                  <mat-option value="Controller">Controller</mat-option>
+                  <mat-option value="Supervisor">Supervisor</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="formstyle">
+                <mat-label>Date of birth</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birth">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <div *ngIf="Formation.get('birth')?.errors?.['futureDate'] && Formation.get('birth')?.touched" class="text-danger">
+                  Please select a date prior to today.
+                          </div>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Military Identification Number</mat-label>
+                <input matInput placeholder="Military Identification Number" formControlName="identificationMilitaire" type="number">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Personal Address</mat-label>
+                <input matInput placeholder="Personal Address" formControlName="adressePersonnelle">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="Phone Number" formControlName="numeroTelephone" type="number">
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Civil Status</mat-label>
+                <mat-select formControlName="etatCivil">
+                  <mat-option value="single">Single</mat-option>
+                  <mat-option value="married">Married</mat-option>
+                  <mat-option value="divorced">Divorced</mat-option>
+                  <mat-option value="widowed">Widowed</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Email" required>
+                <mat-error *ngIf="Empregister.get('basic.email')?.hasError('required')">Please enter an email</mat-error>
+                <mat-error *ngIf="Empregister.get('basic.email')?.hasError('pattern')">Please enter an email valid</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="formstyle">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="{{ hidePassword ? 'password' : 'text' }}" placeholder="Password" required>
+                  <mat-icon mat-icon-button matSuffix (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                <mat-error *ngIf="Empregister.get('basic.password')?.hasError('required')">Please enter a Password</mat-error>
+              </mat-form-field>
+
+            <!-- Pour l'image -->
+            <!-- Pour l'image -->
+            <br>
+      <label for="image" class="custom-file-upload">
+        Select your photo
+      </label>
+      <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)" accept="image/*" style="display: none;" />
+      <br> <br>
+      <!-- Pour le CV -->
+      <label for="cv" class="custom-file-upload">
+        Select your CV
+      </label>
+      <input type="file" id="cv" formControlName="cv" (change)="onFileSelected2($event)" style="display: none;" />
+
+              <div>
+                <br>
+
+                <button mat-raised-button color="primary" class="btn1" style="  margin-left: 200px;" matStepperNext >Next</button>
+              </div>
+
+
+            </div>
+          </mat-step>
+
+            <mat-step [stepControl]="Formation" >
+              <div formGroupName="formation" >
+                <ng-template matStepLabel>Fill out Military Formation</ng-template>
+                <div style="margin-top: 10px;">
+                  <mat-form-field appearance="fill" class="formstyle" >
+                    <mat-label>Assignment Unit</mat-label>
+                    <input matInput placeholder="Assignment Unit" formControlName="unit">
+                  </mat-form-field>
+                  <mat-form-field class="formstyle">
+                    <mat-label>Date of entry to military</mat-label>
+                    <input matInput [matDatepicker]="picker1" placeholder="Date of entry to military" formControlName="date">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 ></mat-datepicker>
+                    <div *ngIf="Formation.get('date')?.errors?.['futureDate'] && Formation.get('date')?.touched" class="text-danger">
+                      Please select a date prior to today.
+                              </div>
+                  </mat-form-field>
+                </div>
+
+                <br>
+      <label>Obtained Ranks</label>
+                <div id="table-container">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div formArrayName="experiences">
+                        <div *ngFor="let experience of experiencesArray.controls; let i = index" [formGroupName]="i">
+                          <tr>
+                            <td><input type="text" class="form-control" formControlName="type"></td>
+                            <td><input type="date" class="form-control" formControlName="annee">
+                              <div *ngIf="Formation.get('annee')?.errors?.['futureDate'] && Formation.get('annee')?.touched" class="text-danger">
+                                Please select a date prior to today.
+                                        </div>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-danger" (click)="removeExperienceRow(i)">
+                                <i class="fa fa-trash fa-sm"></i> Delete
+                              </button>
+                            </td>
+                          </tr>
+                        </div>
+                      </div>
+
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="6">
+                          <button class="btn btn-sm btn-info" (click)="addExperienceRow()">Add</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <br>
+                <label>Specializations</label>
+                <div id="table-container-specializations">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Specialization</th>
+                        <th>Level</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div formArrayName="specializations">
+                        <div *ngFor="let specialization of specializationsArray.controls; let i = index" [formGroupName]="i">
+                          <tr>
+                            <td><input type="text" class="form-control" formControlName="name"></td>
+                            <td>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Level</mat-label>
+                                <select matNativeControl formControlName="level">
+                                  <option value="excellent">Excellent</option>
+                                  <option value="moyen">Average</option>
+                                  <option value="novice">Novice</option>
+                                </select>
+                              </mat-form-field>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-danger" (click)="removeSpecializationRow(i)">
+                                <i class="fa fa-trash fa-sm"></i> Delete
+                              </button>
+                            </td>
+                          </tr>
+                        </div>
+                      </div>
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3">
+                          <button class="btn btn-sm btn-info" (click)="addSpecializationRow()">Add</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <div style="display: flex; justify-content: center; align-items: center;">
+                  <button mat-raised-button class="btn2" matStepperPrevious>Back</button>
+                  <div style="margin: 0 10px;">|</div>
+                  <button mat-raised-button class="btn2" matStepperNext>Next</button>
+                </div>
+
+              </div>
+            </mat-step>
+
+            <mat-step [stepControl]="Competence">
+              <div formGroupName="competence">
+                <ng-template matStepLabel>Fill out Competence and Qualification</ng-template>
+
+                <label>Certifications</label>
+                <div id="table-container-certifications">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Certification Name</th>
+                        <th>Date of Attainment</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div formArrayName="certificationsArray">
+                        <div *ngFor="let certification of certificationsArray.controls; let i = index" [formGroupName]="i">
+                          <tr>
+                            <td><input type="text" class="form-control" formControlName="nom"></td>
+                            <td><input type="date" class="form-control" formControlName="dateObtention">
+                              <div *ngIf="Formation.get('date')?.errors?.['futureDate'] && Formation.get('date')?.touched" class="text-danger">
+                                Please select a date prior to today.
+                              </div>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-danger" (click)="removeCertificationRow(i)">
+                                <i class="fa fa-trash fa-sm"></i> Delete
+                              </button>
+                            </td>
+                          </tr>
+                        </div>
+                      </div>
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3">
+                          <button class="btn btn-sm btn-info" (click)="addCertificationRow()">Add</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <br>
+
+                <label>Specific Competences</label>
+                <div id="table-container-competences">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Competence Name</th>
+                        <th>Level</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div formArrayName="competencesArray">
+                        <div *ngFor="let competences of competencesArray.controls; let i = index" [formGroupName]="i">
+                          <tr>
+                            <td><input type="text" class="form-control" formControlName="nom"></td>
+                            <td>
+                              <mat-form-field appearance="fill">
+                                <mat-label>Level</mat-label>
+                                <select matNativeControl formControlName="niveau">
+                                  <option value="excellent">Excellent</option>
+                                  <option value="moyen">Average</option>
+                                  <option value="novice">Novice</option>
+                                </select>
+                              </mat-form-field>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-danger" (click)="removeCompetenceRow(i)">
+                                <i class="fa fa-trash fa-sm"></i> Delete
+                              </button>
+                            </td>
+                          </tr>
+                        </div>
+                      </div>
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3">
+                          <button class="btn btn-sm btn-info" (click)="addCompetenceRow()">Add</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <div  style="display: flex; justify-content: center; align-items: center;">
+             <!---   <button color="primary"   (click)="HandleSubmit()">aff</button>-->
+                  <button class="btn2" matStepperPrevious>Back</button>
+                  <div style="margin: 0 10px;">|</div>
+
+                  <button  class="btn2" type="submit" (click)="submit()">Submit</button>
+                </div>
+              </div>
+            </mat-step>
+            </mat-stepper>
+
+
+
+        <div class="text sign-up-text">Already have an account? <label class="flip"><a [routerLink]="'/login'">Login</a></label></div>
+            </form>
+
+        </div>
+    </div>

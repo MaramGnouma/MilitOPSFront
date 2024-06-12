@@ -1,0 +1,126 @@
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <p style="color: rgb(250, 250, 250);font-weight: bold;">
+      <span>
+<img  src="../../../../assets/icons/icone2.png" style="width: 70px;height: 80px">
+
+      </span>
+      <span>MILITOPS</span>
+
+    </p>
+  </div>
+  <div class="sidebar-menu">
+    <ul>
+      <li *ngIf="user.role == 'Supervisor'">
+        <a [routerLink]="['/responsable/dash']">
+          <span class="las la-igloo"></span>
+          <span>Dashboard </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/shared/listdirect']"  >
+        <span class="las la-clipboard-list"></span>
+        <span>Missions Direct </span>
+    </a>
+    </li>
+    <li>
+      <a [routerLink]="['/responsable/soldats']" *ngIf="user.role == 'Supervisor'">
+        <span class="las la-users"></span>
+        <span>Soldiers </span>
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="['/responsable/controller']" *ngIf="user.role == 'Supervisor'">
+      <span class="las la-user-circle"></span>
+      <span>Controllers </span>
+  </a>
+</li>
+
+<li>
+  <a [routerLink]="['/responsable/missionterminees']" *ngIf="user.role == 'Supervisor'">
+    <span class="las la-receipt"></span>
+    <span>Mission Termined </span>
+</a>
+</li>
+<li>
+  <a (click)="logout()" [style.margin-top.px]="user.role=='Controller' ? 470 : 260">
+    <span class="las la-sign-out-alt"></span>
+    <span>Logout</span>
+  </a>
+</li>
+    </ul>
+
+  </div>
+</div>
+<div class="main-content">
+
+  <header>
+    <h5>
+      <div class="header-title" >
+        <label for="nav-toggle" for="nav-toggle">
+          <span class="las la-bars"></span>
+        </label>
+        <ng-container *ngIf="missions">
+          {{missions.name}}
+          </ng-container>
+      </div>
+    </h5>
+<img src="../../../assets/iconemission.png" width="50px" height="50px" class="btn btn-primary" (click)="openModal(missions._id)"/>
+
+  </header>
+
+
+<main>
+
+  <div class="row">
+    <div class="row" style="margin-top: -10px;">
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-header d-block border-0 pb-0">
+            <div class="d-flex justify-content-between pb-3">
+              <h4 class="mb-0 text-black fs-20">Soldier 1</h4>
+            </div>
+          </div>
+          <canvas id="canvas"  height="160"></canvas>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-header d-block border-0 pb-0">
+            <div class="d-flex justify-content-between pb-3">
+              <h4 class="mb-0 text-black fs-20">Soldier 2</h4>
+            </div>
+          </div>
+          <canvas #heartRateChart2 id="heartRateChart2" width="200" height="80"></canvas>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-header d-block border-0 pb-0">
+            <div class="d-flex justify-content-between pb-3">
+              <h4 class="mb-0 text-black fs-20">Soldier 3</h4>
+            </div>
+          </div>
+          <canvas #heartRateChart3 id="heartRateChart3" width="200" height="80"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;justify-content: space-between;">
+      <div class="col-xl-6 col-xxl-6 col-sm-6" >
+        <video id="remoteVideo" width="680" height="430" style="margin-left: 10px;" autoplay playsinline controls download></video>
+
+        </div>
+        <div class="col-xl-6 col-xxl-6 col-sm-6 ">
+          <div id="map2" style="width:610px; height:430px;margin-left: 20px;"></div>
+
+        </div>
+    </div>
+  </div>
+</main>
+
+
+</div>
+
+

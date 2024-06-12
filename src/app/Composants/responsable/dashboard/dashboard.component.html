@@ -1,0 +1,175 @@
+
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <p style="color: rgb(250, 250, 250);font-weight: bold;">
+      <span>
+<img  src="../../../../assets/icons/icone2.png" style="width: 85px;height: 100px">
+<span> MILITOPS</span>
+      </span>
+      <br>
+      </p>
+  </div>
+  <div class="sidebar-menu">
+    <ul>
+      <li>
+        <a [routerLink]="['/responsable/dash']" class="active">
+          <span class="las la-igloo"></span>
+          <span>Dashboard </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/shared/listdirect']"  >
+        <span class="las la-clipboard-list"></span>
+        <span>Missions Direct </span>
+    </a>
+    </li>
+    <li>
+      <a [routerLink]="['/responsable/soldats']">
+        <span class="las la-users"></span>
+        <span>Soldiers </span>
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="['/responsable/controller']">
+      <span class="las la-user-circle"></span>
+      <span>Controllers </span>
+  </a>
+</li>
+
+<li>
+  <a [routerLink]="['/responsable/missionterminees']" >
+    <span class="las la-receipt"></span>
+    <span>Mission Termined </span>
+</a>
+</li>
+<li>
+  <a (click)="logout()" style="margin-top: 260px;">
+    <span class="las la-sign-out-alt"></span>
+    <span>Logout</span>
+  </a>
+</li>
+    </ul>
+
+  </div>
+</div>
+<div class="main-content">
+<app-header></app-header>
+
+<main>
+  <div class="cards">
+    <div class="card-single">
+      <div>
+        <h1>{{totalEquipements}}</h1>
+        <span>Number of Equipment</span>
+      </div>
+      <div>
+        <img src="../../../../assets/casque.png" width="40" height="40"/>
+      </div>
+    </div>
+    <div class="card-single">
+      <div>
+        <h1>{{totalMissions}}</h1>
+        <span>Nomber of Missions</span>
+      </div>
+      <div>
+        <img src="../../../../assets/mission.png" width="60" height="60"/>
+      </div>
+    </div>
+    <div class="card-single">
+      <div>
+        <h1>{{totalIntervenants}}</h1>
+        <span>Number of Soldiers</span>
+      </div>
+      <div>
+        <img src="../../../../assets/militaire (1).png" width="50" height="50"/>
+      </div>
+    </div>
+    <div class="card-single">
+      <div>
+        <h1>{{totalControllers}}</h1>
+        <span>Number of Controllers</span>
+      </div>
+      <div>
+        <img src="../../../../assets/militaire (3).png" width="50" height="50"/>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-sm-7">
+        <div class="card">
+          <div class="card-title">
+            <h2>Number of missions per responsable</h2>
+          </div>
+          <div>
+            <!-- Utilisation du composant de graphique avec les données de chartOptions2 -->
+            <div class="chart-container">
+              <apx-chart
+              [series]="chartOptions2.series"
+              [chart]="chartOptions2.chart"
+              [labels]="chartOptions2.labels"
+              [xaxis]="chartOptions2.xaxis"
+              [colors]="chartOptions2.colors"
+              [plotOptions]="chartOptions2.plotOptions"
+              [dataLabels]="chartOptions2.dataLabels"
+              [stroke]="chartOptions2.stroke"
+              [legend]="chartOptions2.legend">
+            </apx-chart>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-5" >
+        <div class="card" style="height: 454px;">
+          <div class="card-title">
+            <h2>Number of missions per type</h2>
+          </div>
+          <div style="padding-top: 30px;">
+            <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [yaxis]="chartOptions.yaxis"
+            [xaxis]="chartOptions.xaxis"
+            [labels]="chartOptions.labels"
+            [stroke]="chartOptions.stroke"
+            [plotOptions]="chartOptions.plotOptions"
+            [markers]="chartOptions.markers"
+            [fill]="chartOptions.fill"
+            [tooltip]="chartOptions.tooltip"
+            ></apx-chart>
+          </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col" id="chart">
+        <div class="card">
+          <div class="card-title">
+            <h2>Average Success And Failure Rate By Type</h2>
+          </div>
+          <div>
+  <apx-chart
+    [series]="chartOptions3.series"
+    [chart]="chartOptions3.chart"
+    [yaxis]="chartOptions3.yaxis"
+    [xaxis]="chartOptions3.xaxis"
+    [labels]="chartOptions3.labels"
+    [stroke]="chartOptions3.stroke"
+    [plotOptions]="chartOptions3.plotOptions"
+    [markers]="chartOptions3.markers"
+    [fill]="chartOptions3.fill"
+    [tooltip]="chartOptions3.tooltip"
+  ></apx-chart>
+</div>
+</div>
+</div>
+    </div>
+    </div>
+  </div>
+
+</main>
+</div>

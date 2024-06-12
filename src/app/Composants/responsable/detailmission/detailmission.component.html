@@ -1,0 +1,142 @@
+
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <p style="color: rgb(250, 250, 250);font-weight: bold;">
+      <span>
+<img  src="../../../../assets/icons/icone2.png" style="width: 70px;height: 80px">
+
+      </span>
+      <span>MILITOPS</span>
+
+    </p>
+  </div>
+  <div class="sidebar-menu">
+    <ul>
+      <li>
+        <a [routerLink]="['/responsable/dash']" >
+          <span class="las la-igloo"></span>
+          <span>Dashboard </span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/responsable/listdirect']"  >
+        <span class="las la-clipboard-list"></span>
+        <span>Missions Direct </span>
+    </a>
+    </li>
+    <li>
+      <a [routerLink]="['/responsable/soldats']">
+        <span class="las la-users"></span>
+        <span>Soldiers </span>
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="['/responsable/controller']">
+      <span class="las la-user-circle"></span>
+      <span>Controllers </span>
+  </a>
+</li>
+
+<li>
+  <a [routerLink]="['/responsable/missionterminees']" >
+    <span class="las la-receipt"></span>
+    <span>Mission Termined </span>
+</a>
+</li>
+<li>
+  <a (click)="logout()" style="margin-top: 260px;">
+    <span class="las la-sign-out-alt"></span>
+    <span>Logout</span>
+  </a>
+</li>
+    </ul>
+
+  </div>
+</div>
+<div class="main-content">
+<app-header></app-header>
+<main>
+  <div class="card">
+
+    <div class="card-body d-flex"  id="box">
+
+      <div class="mission-info">
+
+        <ng-container *ngIf="missionT">
+          <h1 class="card-title">{{missionT.name}}</h1>
+          <p><strong>Controller : </strong> {{missionT.controller.name}}</p>
+          <p><strong>Responsible : </strong>{{missionT.Responsable.name}}</p>
+          <p><strong>Objective : </strong>{{missionT.objectif}}</p>
+          <p><strong>Type : </strong>{{missionT.typemission}}</p>
+          <p><strong>Address : </strong> {{missionT.adresse}}</p>
+          <p><strong>Start Date : </strong> {{missionT.datedebut |date: 'dd/MM/yyyy'}}</p>
+          <p><strong>Start Time : </strong>{{missionT.heuredebut}}</p>
+          <p><strong>Result : </strong>{{missionT.resultat}}</p>
+
+          <div *ngIf="missionT.resultat!='Abandoned'">
+          <p><strong>Final Date : </strong>{{missionT.heureFin}}</p>
+          <p><strong>End Time : </strong> {{missionT.dateFin |date: 'dd/MM/yyyy'}}</p>
+          <div *ngIf="missionT.cause">
+            <p><strong>Cause : </strong>{{missionT.cause}}</p>
+          </div>
+          <p><strong>Rate of Success : </strong>{{missionT.rate}}</p>
+        </div>
+        </ng-container>
+
+      </div>
+      <div  id="print" >
+        <table mat-table matSort [dataSource]="dataSource" class="thead tbody" id="print-table">
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef class="th1"> Photo </th>
+            <td mat-cell *matCellDef="let m" class="td1"> <img src="{{m.image}}" width="60px" height="80px"></td>
+          </ng-container>
+
+          <!-- Column du nom -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="th1"> Name </th>
+            <td mat-cell *matCellDef="let m" class="td1"> {{ m.name }}</td>
+          </ng-container>
+
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let m; columns: displayedColumns;"></tr> <!-- Remove the extra *ngFor here -->
+        </table>
+
+        <mat-paginator class="pag"    [pageSizeOptions]="[5, 10,20]" showFirstLastButtons aria-label="Select a period page" style=" margin-left: 150px"></mat-paginator>
+      </div>
+
+    </div>
+    <div class="row" style="margin-left: 300px;">
+      <!-- Nombre d'équipement utilisés -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="mb-0 text-black">Number of Equipment Used</h4>
+          </div>
+            <!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [labels]="chartOptions.labels"
+    [title]="chartOptions.title"
+    [theme]="chartOptions.theme"
+    [fill]="chartOptions.fill"
+    [yaxis]="chartOptions.yaxis"
+    [stroke]="chartOptions.stroke"
+    [legend]="chartOptions.legend"
+    [plotOptions]="chartOptions.plotOptions"
+  ></apx-chart>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+  </main>
+</div>

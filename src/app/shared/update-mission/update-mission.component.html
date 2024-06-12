@@ -1,0 +1,259 @@
+<h2 mat-dialog-title>Favorite Animal</h2>
+
+        <mat-stepper [linear]="isLinear" #stepper>
+
+          <mat-step>
+            <form [formGroup]="firstFormGroup">
+              <!-- Move ng-template outside mat-step -->
+            <ng-template matStepLabel>Form</ng-template>
+            <div mat-dialog-content class="content">
+              <div class="container">
+                <div class="row">
+                  <div class="col" *ngIf="firstFormGroup.get('nomMission')">
+                    <div class="input-container">
+                      <input placeholder="Nom Mission" class="input-field" type="text" formControlName="nomMission">
+                      <label for="input-field" class="input-label">Mission Name</label>
+                      <span class="input-highlight"></span>
+                      <div *ngIf="firstFormGroup.get('nomMission')?.invalid && (firstFormGroup.get('nomMission')?.dirty || firstFormGroup.get('nomMission')?.touched)">
+                        <div class="text-danger" *ngIf="firstFormGroup.get('nomMission')?.errors?.['required']">
+                          {{ errorMessages.nomMission[0].message }}
+                        </div>
+                        <div class="text-danger" *ngIf="firstFormGroup.get('nomMission')?.errors?.['pattern']">
+                          {{ errorMessages.nomMission[1].message }}
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div class="col">
+                      <label for="missionType">Mission Type</label>
+                      <select matNativeControl id="missionType" formControlName="missionType" style="width: 100%; height: 50px; background-color: rgb(245, 245, 245);">
+                        <option *ngFor="let missionType of typesMissions" [value]="missionType" [selected]="missionType === selectedMission?.typemission">{{ missionType }}</option>
+                      </select>
+
+
+                      <!-- Afficher le message d'erreur si le champ est invalide -->
+                      <div *ngIf="firstFormGroup.get('missionType')?.invalid && (firstFormGroup.get('missionType')?.dirty || firstFormGroup.get('missionType')?.touched)">
+                          <div class="text-danger" *ngIf="firstFormGroup.get('missionType')?.errors?.['required']">
+                              {{ errorMessages.missionType[0].message }}
+                          </div>
+                      </div>
+                  </div>
+
+
+                </div>
+                <div class="row">
+                  <div class="col" *ngIf="firstFormGroup.get('objectif')">
+                    <div class="input-container">
+                      <input placeholder="objectif" class="input-field" type="text" formControlName="objectif">
+                      <label for="input-field" class="input-label">Mission Objective</label>
+                      <span class="input-highlight"></span>
+                      <div *ngIf="firstFormGroup.get('objectif')?.invalid && (firstFormGroup.get('objectif')?.dirty || firstFormGroup.get('objectif')?.touched)">
+                        <div class="text-danger" *ngIf="firstFormGroup.get('objectif')?.errors?.['required']">
+                            {{ errorMessages.objectif[0].message }}
+                        </div>
+                        <div class="text-danger" *ngIf="firstFormGroup.get('objectif')?.errors?.['pattern']">
+                            {{ errorMessages.objectif[1].message }}
+                        </div>
+                    </div>
+                    </div>
+
+                  </div>
+                  <div class="col" *ngIf="firstFormGroup.get('adresse')">
+                    <div class="input-container">
+                      <div>
+                        <input placeholder="Adresse" class="input-field" type="text" formControlName="adresse" #inputfield>
+                      </div>
+                      <label for="input-field" class="input-label">Mission Address</label>
+                      <span class="input-highlight"></span>
+                      <div *ngIf="firstFormGroup.get('adresse')?.invalid && (firstFormGroup.get('adresse')?.dirty || firstFormGroup.get('adresse')?.touched)">
+                        <div class="text-danger" *ngIf="firstFormGroup.get('adresse')?.errors?.['required']">
+                            {{ errorMessages.adresse[0].message }}
+                        </div>
+                        <div class="text-danger" *ngIf="firstFormGroup.get('adresse')?.errors?.['pattern']">
+                            {{ errorMessages.adresse[1].message }}
+                        </div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col" *ngIf="firstFormGroup.get('date')">
+                      <label>Date of Mission</label>
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" type="date" formControlName="date" [value]="selectedMission?.date">
+                      </div>
+                      <div *ngIf="firstFormGroup.get('date')?.invalid && (firstFormGroup.get('date')?.dirty || firstFormGroup.get('date')?.touched)">
+                          <div class="text-danger" *ngIf="firstFormGroup.get('date')?.errors?.['required']">
+                              {{ errorMessages.date[0].message }}
+                          </div>
+                          <div class="text-danger" *ngIf="firstFormGroup.get('date')?.errors?.['pattern']">
+                              {{ errorMessages.date[1].message }}
+                          </div>
+                      </div>
+                      <div *ngIf="firstFormGroup.get('date')?.errors?.['dateNotPast'] && (firstFormGroup.get('date')?.dirty || firstFormGroup.get('date')?.touched)">
+                          <div class="text-danger">La date ne peut pas être antérieure à aujourd'hui.</div>
+                      </div>
+                  </div>
+
+                    <div class="col" *ngIf="firstFormGroup.get('heuredebut')">
+                      <div class="input-container">
+                        <input placeholder="Heure de début" class="input-field" type="time" formControlName="heuredebut">
+                        <label for="input-field" class="input-label">Heure de début</label>
+                        <span class="input-highlight"></span>
+                        <div *ngIf="firstFormGroup.get('heuredebut')?.invalid && (firstFormGroup.get('heuredebut')?.dirty || firstFormGroup.get('heuredebut')?.touched)">
+                          <div class="text-danger" *ngIf="firstFormGroup.get('heuredebut')?.errors?.['required']">
+                          {{ errorMessages.heuredebut[0].message }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+  <!-- Dans votre bouton pour passer à la deuxième étape -->
+  <button class="cta" mat-button  matStepperNext >
+  <span class="span">NEXT</span>
+              <span class="second">
+                <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                    <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                  </g>
+                </svg>
+              </span>
+          </button>
+  </div>
+  </div>
+  </form>
+  </mat-step>
+  <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="secondFormGroup">
+
+            <ng-template matStepLabel>Controllers</ng-template>
+              <div class="form-group">
+                <label>Select Controllers</label><br>
+
+    <div class="select-btn" (click)="toggleDropdown()">
+    <span class="btn-text">Select Controller </span>
+    <span class="arrow-dwn">
+    <i class="fa-solid fa-chevron-down"></i>
+    </span>
+    </div>
+
+    <ul class="list-items">
+
+      <li class="item" *ngFor="let con of users">
+        <input type="radio" [value]="con._id" formControlName="controllers">
+        <span class="item-text">{{ con.name }}</span>
+      </li>
+
+    </ul>
+    </div>
+        <!-- Boutons de navigation -->
+        <button mat-button matStepperPrevious  class="c1" style="margin-top: 50px; margin-right: 50px;" >
+          <span>Back</span>
+          <span class="arrow">
+            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left"></i>
+          </span></button>
+
+          <button class="cta" matStepperNext>
+            <span class="span">NEXT</span>
+            <span class="second">
+              <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                  <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                  <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                </g>
+              </svg>
+            </span>
+        </button>
+      </mat-step>
+      </form>
+
+    <!-- Soldiers step -->
+    <form [formGroup]="thirdFormGroup">
+    <mat-step [stepControl]="thirdFormGroup" >
+      <ng-template matStepLabel>Soldiers</ng-template>
+        <div class="form-group">
+          <label>Select les Soldiers</label> <br>
+          <div class="select-btn2" (click)="toggleDropdown2()">
+            <span class="btn-text2">Selectionner Intervenant</span>
+            <span class="arrow-dwn">
+              <i class="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
+          <ul class="list-items2" >
+            <li class="item2" *ngFor="let inter of intervenants">
+              <input type="checkbox" [value]="inter._id" (change)="onSelect2($event)" formControlName="intervenantsType">
+              <span class="item-text">{{ inter.name }}</span>
+            </li>
+          </ul>
+
+        </div>
+      <button mat-button matStepperPrevious  class="c1" style="margin-top: 50px; margin-right: 50px;">
+        <span>Back</span>
+        <span class="arrow">
+          <i class="fas fa-chevron-left"></i>
+          <i class="fas fa-chevron-left"></i>
+          <i class="fas fa-chevron-left"></i>
+        </span></button>
+        <button class="cta" matStepperNext >
+          <span class="span" >NEXT</span>
+          <span class="second">
+            <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+              </g>
+            </svg>
+          </span>
+      </button>
+    </mat-step>
+  </form>
+
+    <mat-step [stepControl]="fourthFormGroup">
+    <form  [formGroup]="fourthFormGroup">
+        <ng-template matStepLabel>Equipement</ng-template>
+        <div class="row">
+          <div class="col-3" *ngFor="let eq of equipements">
+              <img src="../../../../assets/eq.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                      <h3 class="card-title">{{eq.name}}</h3>
+                      <input type="checkbox" formControlName="check">
+                  </div>
+                  <label>Quantity: </label>
+                  <input type="number" style="height: 30px; width: 100px; margin-left: 5px;" formControlName="quantite"
+                         (change)="onSelect3($event, eq._id)" fo>
+              </div>
+          </div>
+      </div>
+
+        <button mat-button matStepperPrevious  class="c1" style="margin-top: 50px; margin-right: 50px;">
+          <span>Back</span>
+          <span class="arrow">
+            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left"></i>
+          </span></button>
+
+          <button class="cta" mat-button>
+            <span class="span">VALIDATE</span>
+            <span class="second">
+              <i class="fas fa-check"></i>
+            </span>
+          </button>
+
+  </form>
+    </mat-step>
+  </mat-stepper>

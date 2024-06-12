@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Formulaire de résultat</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="resultat">Résultat</label>
+    <input type="text" class="form-control" id="resultat" [(ngModel)]="resultat" (change)="onResultatChange()">
+  </div>
+  <div *ngIf="showCause" class="form-group"> <!-- Utilisez la variable showCause pour contrôler l'affichage -->
+    <label for="cause">Cause de l'échec</label>
+    <input type="text" class="form-control" id="cause" [(ngModel)]="cause">
+  </div>
+  <div *ngIf="showRate" class="form-group"> <!-- Utilisez la variable showCause pour contrôler l'affichage -->
+    <label for="rate">Rate of Sucess</label>
+    <input type="number" class="form-control" id="rate" [(ngModel)]="rate">
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close('Fermer')">Fermer</button>
+  <button type="button" class="btn btn-primary" (click)="updateMissionResult(missionId,resultat,rate,cause)">Enregistrer</button>
+</div>

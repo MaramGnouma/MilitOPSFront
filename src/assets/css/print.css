@@ -1,0 +1,79 @@
+/* print-styles.css */
+@page {
+  size: A4; /* spécifiez la taille de la page */
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 100;
+}
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.eye{
+  background-color: #1dbed7;
+  color: black;
+}
+#print table {
+	width: 800px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  margin-left: 150px;
+}
+
+#print th{
+  padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: #66a5b4;
+}
+#print td {
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: #455356;
+}
+
+#print th {
+	text-align: left;
+}
+
+#print thead {
+	th {
+		background-color: #1e1e21;
+	}
+}
+
+#print tbody {
+	tr {
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	td {
+		position: relative;
+		&:hover {
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255,255,255,0.2);
+				z-index: -1;
+			}
+		}
+	}
+}

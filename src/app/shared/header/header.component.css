@@ -1,0 +1,7 @@
+.dropdown-toggle::after {
+  display: none !important; /* Masque la flèche */
+}
+.dropdown-menu {
+  max-height: 600px; /* Set maximum height for the dropdown menu */
+  overflow-y: auto; /* Enable vertical scrolling */
+}

@@ -1,0 +1,99 @@
+html,
+body {
+	height: 100%;
+}
+
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.eye{
+  background-color: #1dbed7;
+  color: black;
+
+}
+
+.th1{
+	background-color: rgba(255,255,255,0.2);
+	color: #66a5b4;
+  text-align: left;
+  width: 1px;
+}
+.td1{
+	background-color: rgba(255,255,255,0.2);
+	color: #455356;
+}
+
+
+.thead {
+  margin-left: 150px;
+	th {
+		background-color: #1e1e21;
+	}
+
+}
+
+.tbody {
+	.tr1 {
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	.td1 {
+		position: relative;
+		&:hover {
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255,255,255,0.2);
+				z-index: -1;
+			}
+		}
+	}
+}
+@media print {
+  .sidebar, .c1{
+    visibility: hidden; /* Masquer la table spécifique lors de l'impression */
+  }
+}
+/* Ajoutez des styles CSS pour les écrans de taille moyenne */
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 90%; /* Redimensionnez la largeur du conteneur */
+  }
+  .sidebar {
+    width: 100%; /* Assurez-vous que la barre latérale occupe toute la largeur */
+  }
+  .main-content {
+    width: 100%; /* Assurez-vous que le contenu principal occupe toute la largeur */
+  }
+  .card {
+    width: 90%; /* Redimensionnez la largeur de la carte */
+  }
+  #print-table {
+    width: 100%; /* Assurez-vous que la table occupe toute la largeur */
+  }
+}
+
+/* Ajoutez des styles CSS pour les écrans de petite taille */
+@media only screen and (max-width: 576px) {
+  .container {
+    width: 95%; /* Redimensionnez la largeur du conteneur */
+  }
+  .card {
+    width: 95%; /* Redimensionnez la largeur de la carte */
+  }
+}
+#print-table {
+  max-width: 50px;
+  margin-right: 50px; /* Définissez une largeur maximale pour éviter que la table ne devienne trop large */
+}
+
